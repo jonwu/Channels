@@ -10,7 +10,7 @@ import generateStyles from '../../common/utils/gstyles';
 let initialState = JSON.parse(rehydrate('INITIAL_STATE'));
 
 // Transform settings because there are functions in my state (via theme)...
-if (initialState.settings) {
+if (initialState && initialState.settings) {
   const settings = initialState.settings;
   const nextSettings = Object.assign({}, initialState.settings, {
     theme: collections[settings.theme.id],
@@ -19,7 +19,8 @@ if (initialState.settings) {
   initialState = Object.assign({}, initialState, {
     settings: nextSettings,
   });
-
+} else {
+  initialState = {};
 }
 const store = configureStore(initialState);
 
